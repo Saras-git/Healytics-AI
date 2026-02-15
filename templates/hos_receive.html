@@ -1,0 +1,312 @@
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="img/favicon.png" type="image/png">
+    <title></title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/themify-icons.css">
+    <link rel="stylesheet" href="../static/vendors/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../static/vendors/owl-carousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="../static/vendors/animate-css/animate.css">
+    <!-- main css -->
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/responsive.css">
+<script language="javascript">
+function validate()
+{
+	if(document.form1.name.value=="")
+	{
+	alert("Enter the Name");
+	document.form1.name.focus();
+	return false;
+	}
+	if(document.form1.dob.value=="")
+	{
+	alert("Enter the Date of Birth");
+	document.form1.dob.focus();
+	return false;
+	}
+	if(document.form1.address.value=="")
+	{
+	alert("Enter the Address");
+	document.form1.address.focus();
+	return false;
+	}
+	if(document.form1.city.value=="")
+	{
+	alert("Enter the City");
+	document.form1.city.focus();
+	return false;
+	}
+	if(document.form1.mobile.value=="")
+	{
+	alert("Enter the Mobile No.");
+	document.form1.mobile.focus();
+	return false;
+	}
+	if(isNaN(document.form1.mobile.value))
+	{
+	alert("Invalid Mobile No.");
+	document.form1.mobile.select();
+	return false;
+	}
+	if(document.form1.mobile.value.length!=10)
+	{
+	alert("Mobile No. must be 10 digits!");
+	document.form1.mobile.select();
+	return false;
+	}
+	if(document.form1.email.value=="")
+	{
+	alert("Enter the Email");
+	document.form1.email.focus();
+	return false;
+	}
+	if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(document.form1.email.value))  
+	{
+	
+	}
+	else
+	{
+	alert("Invalid E-mail!");
+	document.form1.email.select();
+	return false;
+	}
+	if(document.form1.uname.value=="")
+	{
+	alert("Enter the Username");
+	document.form1.uname.focus();
+	return false;
+	}
+	if(document.form1.pass.value=="")
+	{
+	alert("Enter the Password");
+	document.form1.pass.focus();
+	return false;
+	}
+	if(document.form1.cpass.value=="")
+	{
+	alert("Enter the Confirm Password");
+	document.form1.cpass.focus();
+	return false;
+	}
+	if(document.form1.pass.value!=document.form1.cpass.value)
+	{
+	alert("Password does not match!");
+	document.form1.cpass.select();
+	return false;
+	}
+return true;
+}
+</script>
+</head>
+<body>
+
+    <!--================Header Menu Area =================-->
+    <header class="header_area">    
+        <div class="main_menu">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <a class="navbar-brand logo_h" href="index.html"><img src="../static/img/logo.png" alt=""></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav menu_nav ml-auto">
+                            <li class="nav-item"><a class="nav-link" href="/hos_home">Home</a></li> 
+                            <li class="nav-item"><a class="nav-link" href="/hos_donor">Donor</a></li> 
+							<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>     
+                            <!--<li class="nav-item submenu dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item"><a class="nav-link" href="feature.html">Features</a></li> 
+                                    <li class="nav-item"><a class="nav-link" href="price.html">Price</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="element.html">Element</a></li>
+                                </ul>
+                            </li>-->
+                        </ul>
+                    </div>
+                   
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!--================Header Menu Area =================-->
+
+
+    <!--================Hero Banner Area Start =================-->
+    <section class="hero-banner d-flex align-items-center">
+        <div class="container text-center">
+            <h2>Hospital</h2>
+            <nav aria-label="breadcrumb" class="banner-breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/hos_home">Home</a></li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+    <!--================Hero Banner Area End =================-->
+
+
+  <!-- ================ contact section start ================= -->
+  <p>&nbsp;</p>
+
+      <div class="row">
+	  	<div class="col-2">
+		</div>
+        <div class="col-8">
+          <h2 class="contact-title">Receive Organ</h2>
+        </div>
+	</div>
+	 <div class="row">
+	 	<div class="col-2">
+		</div>
+		
+		
+        <div class="col-lg-6">
+		{% if msg=="success" %}
+		 <span style="color:#009900">Organ Transplanted..</span>
+		 <iframe src="http://iotcloud.co.in/organ_chain/add_block.php?bc={{bc}}&data={{bdata}}" width="50" height="50" frameborder="0"></iframe>
+		 <script>
+//Using setTimeout to execute a function after 5 seconds.
+setTimeout(function () {
+   //Redirect with JavaScript
+   window.location.href= '/hos_trans';
+}, 3000);
+</script>
+			
+			{% endif %}
+			
+			
+			
+          <form name="form1" action="" method="post">
+            <div class="row">
+             
+			  <div class="col-sm-4">
+                <div class="form-group">
+				<label>Patient ID</label>
+                  <input type="text" name="pat_id" class="form-control">
+                </div>
+              </div>
+			  
+			  <div class="form-group mt-4">
+              <button type="submit" class="button button-contactForm">Transplant</button>
+            </div>
+			  
+			</div> 
+			
+          </form>
+
+
+        </div>
+
+        <div class="col-lg-4">
+          <div class="media contact-info">
+            <span class="contact-info__icon"><i class="ti-home"></i></span>
+            <div class="media-body">
+              <h3>Organ Donation</h3>
+              <p>Tamilnadu, India</p>
+            </div>
+          </div>
+          <div class="media contact-info">
+            <span class="contact-info__icon"><i class="ti-tablet"></i></span>
+            <div class="media-body">
+              <h3><a href="tel:454545654">00 (440) 9865 562</a></h3>
+             
+            </div>
+          </div>
+          <div class="media contact-info">
+            <span class="contact-info__icon"><i class="ti-email"></i></span>
+            <div class="media-body">
+              <h3><a href="mailto:support@colorlib.com">organ@info.com</a></h3>
+              <p>Send us your query anytime!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <!-- ================ contact section end ================= -->
+
+ <!-- ================ start footer Area ================= -->
+    <footer class="footer-area">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
+                    <h4>About Us</h4>
+                    <p>Donate organs such as your heart, lungs, liver, kidneys, pancreas and small bowel.</p>
+                    <div class="footer-logo">
+                        <img src="img/logo.png" alt="">
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
+                    <h4>Contact Info</h4>
+                    <div class="footer-address">
+                        <p>Address : Tamilnadu, India</p>
+                        <span>Phone : +8880 44338899</span>
+                        <span>Email : organ@info.com</span>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
+                    <h4>Important Link</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/login">Donor</a></li>
+                        <li><a href="/login_hospital">Hospital</a></li>
+                        <li><a href="/login_admin">Admin</a></li>
+                    </ul>
+                </div>
+
+                
+
+            </div>
+        </div>
+        <div class="footer-bottom row align-items-center text-center text-lg-left no-gutters">
+            <p class="footer-text m-0 col-lg-8 col-md-12"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Organ Donation <a href="https://colorlib.com" target="_blank"></a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+            <div class="col-lg-4 col-md-12 text-center text-lg-right footer-social">
+                <a href="#"><i class="ti-facebook"></i></a>
+                <a href="#"><i class="ti-twitter-alt"></i></a>
+                <a href="#"><i class="ti-dribbble"></i></a>
+                <a href="#"><i class="ti-linkedin"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- ================ End footer Area ================= -->
+
+
+
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="../static/js/jquery-2.2.4.min.js"></script>
+<script src="../static/js/popper.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+<script src="../static/vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="../static/js/jquery.ajaxchimp.min.js"></script>
+<script src="../static/js/waypoints.min.js"></script>
+<script src="../static/js/mail-script.js"></script>
+<script src="../static/js/contact.js"></script>
+<script src="../static/js/jquery.form.js"></script>
+<script src="../static/js/jquery.validate.min.js"></script>
+<script src="../static/js/mail-script.js"></script>
+<script src="../static/js/theme.js"></script>
+</body>
+</html>

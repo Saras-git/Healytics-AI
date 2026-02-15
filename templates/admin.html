@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOTTO Admin Dashboard</title>
+
+<!-- Bootstrap -->
+<link href="../static/css/bootstrap.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+/* ================= PREMIUM LIGHT THEME ================= */
+:root{
+    --bg:#f6f7fb;
+    --card:#ffffff;
+    --text:#0f172a;
+    --muted:#64748b;
+
+    --sidebar:#0f172a;
+    --sidebar-accent:#1e3a8a;
+
+    --accent:#1d4ed8;
+    --success:#15803d;
+    --warning:#b45309;
+}
+
+/* Dark mode untouched, only refined */
+.dark{
+    --bg:#0b1220;
+    --card:#111827;
+    --text:#f8fafc;
+    --muted:#94a3b8;
+    --sidebar:#020617;
+    --sidebar-accent:#020617;
+    --accent:#38bdf8;
+}
+
+/* ================= BASE ================= */
+body{
+    background:linear-gradient(135deg,#f8fafc,#eef2ff);
+    color:var(--text);
+    font-family:"Segoe UI",sans-serif;
+    transition:.4s;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar{
+    position:fixed;
+    inset:0 auto 0 0;
+    width:260px;
+    background:linear-gradient(135deg,#03144e,#1d4ed8);
+    padding:22px;
+    transition:.4s;
+    box-shadow:6px 0 30px rgba(0,0,0,.15);
+}
+.sidebar.collapsed{ width:90px; }
+
+.sidebar h4{
+    text-align:center;
+    color:#fff;
+    letter-spacing:1px;
+    margin-bottom:35px;
+}
+
+.sidebar a{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:14px 16px;
+    margin-bottom:10px;
+    color:#c7d2fe;
+    border-radius:14px;
+    text-decoration:none;
+    position:relative;
+    transition:.35s;
+}
+.sidebar a::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:14px;
+    background:linear-gradient(90deg,rgba(255,255,255,.18),transparent);
+    opacity:0;
+    transition:.35s;
+}
+.sidebar a:hover::before,
+.sidebar a.active::before{ opacity:1; }
+.sidebar a:hover{
+    transform:translateX(6px);
+    color:#fff;
+}
+.sidebar.collapsed span{ display:none; }
+
+/* ================= MAIN ================= */
+.main{
+    margin-left:260px;
+    padding:28px;
+    transition:.4s;
+}
+.main.expand{ margin-left:90px; }
+
+/* ================= TOPBAR ================= */
+.topbar{
+    background:var(--card);
+    background-color: #05206a;
+    color: white;
+    padding:16px 22px;
+    border-radius:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 10px 30px rgba(15,23,42,.12);
+}
+
+/* ================= STATS ================= */
+.stat-card{
+    border-radius:22px;
+    padding:26px;
+    color:#ffffff;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 18px 40px rgba(15,23,42,.25);
+    transition:.35s;
+}
+.stat-card:hover{ transform:translateY(-6px); }
+.stat-card::after{
+    content:"";
+    position:absolute;
+    inset:-40%;
+    background:radial-gradient(circle,rgba(255,255,255,.22),transparent 60%);
+}
+
+/* Premium gradients */
+.bg1{background:linear-gradient(135deg,#94a026,#b9c927);}
+.bg2{background:linear-gradient(135deg,#166534,#22c55e);}
+.bg3{background:linear-gradient(135deg,#92400e,#f59e0b);}
+
+/* ================= CONTENT BOX ================= */
+.box{
+    background:var(--card);
+    border-radius:22px;
+    padding:22px;
+    box-shadow:0 14px 35px rgba(15,23,42,.12);
+    margin-bottom:24px;
+    transition:.35s;
+}
+.box:hover{ transform:translateY(-4px); }
+
+/* ================= TEXT ================= */
+h5,h6{ font-weight:600; }
+.text-muted{ color:var(--muted)!important; }
+
+/* ================= ICONS ================= */
+.toggle-btn{
+    font-size:1.5rem;
+    cursor:pointer;
+    transition:.3s;
+}
+.toggle-btn:hover{ transform:rotate(15deg); }
+
+/* ================= FOOTER ================= */
+footer{
+    text-align:center;
+    padding:25px;
+    color:var(--muted);
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <h4>NOTTO</h4>
+    <a class="active" href="/admin"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a>
+    <a href="/verify_donor"><i class="bi bi-person-check"></i><span>Verify Donors</span></a>
+    <a href="/process1"><i class="bi bi-person-check"></i><span> Train Dataset</span></a>
+
+    <a href="/logout"><i class="bi bi-box-arrow-right"></i><span>Logout</span></a>
+</div>
+
+<!-- MAIN -->
+<div class="main" id="main">
+
+<!-- TOPBAR -->
+<div class="topbar mb-4">
+    <div class="d-flex align-items-center gap-3">
+        <i class="bi bi-list toggle-btn" onclick="toggleSidebar()"></i>
+        <h5 class="mb-0">Admin Dashboard</h5>
+    </div>
+    <i class="bi bi-moon-stars toggle-btn" onclick="toggleDark()"></i>
+</div>
+
+<!-- STATS -->
+<div class="row mb-4">
+<div class="col-md-4">
+    <div class="stat-card bg1">
+        <i class="bi bi-people-fill fs-2"></i>
+        <h6>Total Donors</h6>
+        <h2 class="counter" data-count="{{ total_donors }}">0</h2>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="stat-card bg2">
+        <i class="bi bi-heart-pulse-fill fs-2"></i>
+        <h6>Successful Transplants</h6>
+        <h2 class="counter" data-count="{{ successful_transplants }}">0</h2>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="stat-card bg3">
+        <i class="bi bi-hourglass-split fs-2"></i>
+        <h6>Pending Requests</h6>
+        <h2 class="counter" data-count="{{ pending_requests }}">0</h2>
+    </div>
+</div>
+</div>
+
+<!-- HOSPITALS -->
+<h4 class="mb-3">🏥 Hospital Information</h4>
+<div class="row">
+{% for rs in data %}
+<div class="col-md-4">
+    <div class="box">
+        <h5>{{ rs[1] }}</h5>
+        <p class="text-muted">{{ rs[2] }}, {{ rs[3] }}</p>
+        <p><strong>Mobile:</strong> {{ rs[4] }}</p>
+        <p><strong>Email:</strong> {{ rs[5] }}</p>
+        {% if rs[9]==1 %}
+            <span class="badge bg-success">Approved</span>
+        {% else %}
+            <a href="/admin?act=yes&hid={{ rs[0] }}" class="btn btn-primary btn-sm">Approve</a>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+</div>
+
+<!-- CHARTS -->
+<div class="row mt-4">
+<div class="col-md-6">
+    <div class="box">
+        <h5>📈 Monthly Transplants</h5>
+        <canvas id="monthlyChart"></canvas>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="box">
+        <h5>🏥 Hospital-wise Transplants</h5>
+        <canvas id="hospitalChart"></canvas>
+    </div>
+</div>
+</div>
+
+<footer>© Organ Donation Management System</footer>
+</div>
+
+<script>
+function toggleSidebar(){
+    sidebar.classList.toggle("collapsed");
+    main.classList.toggle("expand");
+}
+function toggleDark(){
+    document.body.classList.toggle("dark");
+}
+document.querySelectorAll('.counter').forEach(c=>{
+    let t=+c.dataset.count,i=0,s=t/50;
+    let x=setInterval(()=>{i+=s;c.innerText=Math.floor(i);if(i>=t){c.innerText=t;clearInterval(x)}},25);
+});
+new Chart(monthlyChart,{
+    type:'bar',
+    data:{labels:{{ months|safe }},datasets:[{data:{{ month_counts|safe }},backgroundColor:'#f59e0b'}]}
+});
+new Chart(hospitalChart,{
+    type:'doughnut',
+    data:{labels:{{ hospitals|safe }},datasets:[{data:{{ hospital_counts|safe }},backgroundColor:['#15803d','#1d4ed8','#f59e0b','#dc2626']}]}
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Organ Required</title>
+
+<link rel="stylesheet" href="../static/css/bootstrap.css">
+<link rel="stylesheet" href="../static/vendors/fontawesome/css/all.min.css">
+
+<style>
+body{
+    background:linear-gradient(135deg,#e8f0ff,#f7fbff);
+    font-family:"Segoe UI", sans-serif;
+    margin:0;
+}
+
+/* NAVBAR */
+.navbar{
+    background:linear-gradient(90deg,#0f2c64,#1f6ed5);
+    box-shadow:0 5px 20px rgba(0,0,0,.2);
+}
+.navbar-brand{color:white!important;font-weight:700;}
+.navbar-nav{margin:auto;}
+.navbar .nav-link{
+    color:white!important;
+    font-weight:600;
+    margin:0 14px;
+    padding:6px 48px;
+    border-radius:8px;
+    background:linear-gradient(135deg,#2e86de,#48dbfb);
+}
+
+/* HERO */
+.hero-banner{
+    background:linear-gradient(rgba(50,100,220,.85),rgba(120,200,255,.85)),url('../static/img/hero.jpg');
+    background-size:cover;
+    color:white;
+    padding:60px 0;
+}
+
+/* LAYOUT */
+.dashboard-wrapper{display:flex;width:100%;}
+
+/* SIDEBAR */
+.sidebar{
+    width:260px;
+    min-height:100vh;
+    background:linear-gradient(180deg,#0f2c64,#1f6ed5);
+    padding:25px 15px;
+}
+.sidebar a{
+    display:flex;
+    gap:12px;
+    padding:14px 18px;
+    margin-bottom:16px;
+    border-radius:12px;
+    color:white;
+    text-decoration:none;
+    background:rgba(255,255,255,.1);
+}
+.sidebar a:hover{
+    background:linear-gradient(135deg,#48dbfb,#2e86de);
+    transform:translateX(6px);
+}
+.sidebar a.active{
+    background:linear-gradient(135deg,#48dbfb,#2e86de);
+    transform:translateX(8px);
+    box-shadow:0 0 15px rgba(72,219,251,.9);
+}
+
+/* MAIN */
+.main-content{
+    padding:35px;
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+}
+
+/* FORM CARD */
+.form-card{
+    width:100%;
+    max-width:650px;
+    background:linear-gradient(135deg,#ffffff,#f3f9ff);
+    padding:35px 40px;
+    border-radius:25px;
+    box-shadow:0 15px 35px rgba(0,0,0,.2);
+    animation:fadeIn .6s ease-in-out;
+}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(20px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* FORM TITLE */
+.form-card h3{
+    text-align:center;
+    font-weight:700;
+    margin-bottom:25px;
+    color:#0f2c64;
+}
+
+/* INFO BOX */
+.patient-box{
+    background:linear-gradient(135deg,#2e86de,#48dbfb);
+    color:white;
+    padding:15px 20px;
+    border-radius:15px;
+    margin-bottom:20px;
+    text-align:center;
+}
+
+/* BUTTON */
+.btn-main{
+    display:block;
+    margin:auto;
+    margin-top:20px;
+    background:linear-gradient(135deg,#0f2c64,#1f6ed5);
+    color:white;
+    border-radius:30px;
+    padding:10px 40px;
+    border:none;
+    font-weight:600;
+    transition:.3s;
+}
+.btn-main:hover{
+    background:linear-gradient(135deg,#1f6ed5,#0f2c64);
+    transform:scale(1.05);
+}
+
+/* FOOTER */
+.footer-area{
+    background:linear-gradient(90deg,#0f2c64,#1f6ed5);
+    color:white;
+    padding:35px 0;
+    margin-top:40px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+<div class="container">
+<a class="navbar-brand" href="#">🏥 ORGAN</a>
+<div class="collapse navbar-collapse">
+<ul class="navbar-nav">
+<li class="nav-item"><a class="nav-link" href="/hos_home">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="/hos_donor">Donor</a></li>
+<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+</ul>
+</div>
+</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-banner text-center">
+<div class="container">
+<h1>Organ Required</h1>
+<p>Hospital Dashboard</p>
+</div>
+</section>
+
+<div class="dashboard-wrapper">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<a href="/hos_pat"><i class="fas fa-user-injured"></i> Patients</a>
+<a href="/hos_donor"><i class="fas fa-hand-holding-medical"></i> Donors</a>
+<a href="/hos_req" class="active"><i class="fas fa-notes-medical"></i> Organ Required</a>
+<a href="/hos_trans"><i class="fas fa-procedures"></i> Transplant</a>
+</div>
+
+<!-- MAIN -->
+<div class="main-content">
+
+<div class="form-card">
+
+<h3>🫀 Organ Requirement</h3>
+
+{% if msg=="success" %}
+<div style="color:green;font-weight:bold;text-align:center;">
+Patient Status Updated..
+</div>
+
+<iframe src="http://iotcloud.co.in/organ_chain/add_block.php?bc={{bc}}&data={{bdata}}" width="50" height="50" frameborder="0"></iframe>
+
+<script>
+setTimeout(function () {
+   window.location.href= '/hos_req';
+}, 3000);
+</script>
+{% endif %}
+
+<div class="patient-box">
+<b>Patient:</b> {{data[1]}} <br>
+<b>ID:</b> {{data[12]}}
+</div>
+
+<form method="post">
+
+<div class="form-group">
+<label><b>Organ Required</b></label>
+<select class="form-control" name="organ" required>
+<option value="">-Select-</option>
+<option>Heart</option>
+<option>Lungs</option>
+<option>Eyes</option>
+<option>Liver</option>
+<option>Kidneys</option>
+<option>Pancreas</option>
+<option>Small Bowel</option>
+</select>
+</div>
+
+<!-- ✅ NEW FIELD: URGENCY (ADDED ONLY) -->
+<div class="form-group">
+<label><b>Urgency Level</b></label>
+<select class="form-control" name="urgency" required>
+<option value="">-Select-</option>
+<option value="Low">Low</option>
+<option value="Medium">Medium</option>
+<option value="High">High</option>
+<option value="Critical">Critical</option>
+</select>
+</div>
+
+<button type="submit" class="btn-main">Submit</button>
+
+</form>
+
+</div>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer-area text-center">
+<div class="container">
+<p>Organ Donation System © 2026</p>
+<p>Tamilnadu, India | organ@info.com</p>
+</div>
+</footer>
+
+<script src="../static/js/jquery-2.2.4.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+
+</body>
+</html>

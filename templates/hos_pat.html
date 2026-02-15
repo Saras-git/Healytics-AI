@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Patient Information</title>
+
+<link rel="stylesheet" href="../static/css/bootstrap.css">
+<link rel="stylesheet" href="../static/vendors/fontawesome/css/all.min.css">
+
+<style>
+body{
+    background:linear-gradient(135deg,#e8f0ff,#f7fbff);
+    font-family:"Segoe UI", sans-serif;
+    margin:0;
+}
+
+/* NAVBAR */
+.navbar{
+    background:linear-gradient(90deg,#0f2c64,#1f6ed5);
+    box-shadow:0 5px 20px rgba(0,0,0,.2);
+}
+.navbar-brand{
+    color:white!important;
+    font-weight:700;
+}
+.navbar-nav{margin:auto;}
+.navbar .nav-link{
+    color:white!important;
+    font-weight:600;
+    margin:0 14px;
+    padding:6px 48px;
+    border-radius:8px;
+    background:linear-gradient(135deg,#2e86de,#48dbfb);
+    transition:.4s;
+}
+
+/* HERO */
+.hero-banner{
+    background:linear-gradient(rgba(50,100,220,.85),rgba(120,200,255,.85)),url('../static/img/hero.jpg');
+    background-size:cover;
+    color:white;
+    padding:60px 0;
+}
+
+/* LAYOUT */
+.dashboard-wrapper{display:flex;width:100%;}
+
+/* SIDEBAR */
+.sidebar{
+    width:260px;
+    min-height:100vh;
+    background:linear-gradient(180deg,#0f2c64,#1f6ed5);
+    padding:25px 15px;
+}
+.sidebar a{
+    display:flex;
+    gap:12px;
+    padding:14px 18px;
+    margin-bottom:16px;
+    border-radius:12px;
+    color:white;
+    text-decoration:none;
+    background:rgba(255,255,255,.1);
+    transition:.3s;
+}
+.sidebar a:hover{
+    background:linear-gradient(135deg,#48dbfb,#2e86de);
+    transform:translateX(6px);
+}
+
+/* MAIN */
+.main-content{
+    padding:35px;
+    flex:1;
+}
+
+/* PATIENT CARD (BIG) */
+.patient-card{
+    background:linear-gradient(135deg,#2e86de,#48dbfb);
+    color:white;
+    border-radius:24px;
+    padding:28px;
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+    transition:.4s;
+    min-height:420px;
+}
+.patient-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 25px 45px rgba(0,0,0,.4);
+}
+.patient-card h5{
+    font-weight:700;
+    margin-bottom:10px;
+}
+.patient-card p{
+    font-size:15px;
+    margin:6px 0;
+}
+
+/* BUTTONS */
+.card-btn{
+    display:inline-block;
+    margin-top:12px;
+    margin-right:8px;
+    padding:8px 22px;
+    border-radius:25px;
+    font-weight:600;
+    text-decoration:none;
+    color:white;
+    background:linear-gradient(135deg,#0f2c64,#1f6ed5);
+    transition:.3s;
+}
+.card-btn:hover{
+    background:linear-gradient(135deg,#1f6ed5,#0f2c64);
+    transform:scale(1.05);
+    color:white;
+}
+
+/* FOOTER */
+.footer-area{
+    background:linear-gradient(90deg,#0f2c64,#1f6ed5);
+    color:white;
+    padding:35px 0;
+    margin-top:40px;
+}
+.sidebar a.active{
+    background:linear-gradient(135deg,#48dbfb,#2e86de);
+    transform:translateX(8px);
+    box-shadow:0 0 15px rgba(72,219,251,.9);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+<div class="container">
+<a class="navbar-brand" href="#">🏥 ORGAN</a>
+<div class="collapse navbar-collapse">
+<ul class="navbar-nav">
+<li class="nav-item"><a class="nav-link" href="/hos_home">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="/hos_donor">Donor</a></li>
+<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+</ul>
+</div>
+</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-banner text-center">
+<div class="container">
+<h1>Patient Information</h1>
+<p>Hospital Dashboard</p>
+</div>
+</section>
+
+<div class="dashboard-wrapper">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<a href="/hos_pat" class="active"><i class="fas fa-user-injured" ></i> Patients</a>
+<a href="/hos_donor"><i class="fas fa-hand-holding-medical"></i> Donors</a>
+<a href="/hos_req"><i class="fas fa-notes-medical"></i> Organ Required</a>
+<a href="/hos_trans"><i class="fas fa-procedures"></i> Transplant</a>
+</div>
+
+<!-- MAIN -->
+<div class="main-content">
+
+<h3 class="mb-4">Patient List</h3>
+<a href="/add_patient" class="btn btn-primary mb-4">➕ Add Patient</a>
+
+<div class="row">
+
+{% for rs in data %}
+<div class="col-md-6 mb-4">
+<div class="patient-card">
+
+<h5>👤 {{rs[1]}} (ID: {{rs[12]}})</h5>
+
+<p><b>Gender:</b> {{rs[2]}}</p>
+<p><b>Date of Birth:</b> {{rs[3]}}</p>
+<p><b>Address:</b> {{rs[4]}}, {{rs[5]}}</p>
+<p><b>Mobile:</b> {{rs[6]}}</p>
+<p><b>Email:</b> {{rs[7]}}</p>
+<p><b>Aadhar:</b> {{rs[8]}}</p>
+<p><b>Guardian:</b> {{rs[9]}} ({{rs[10]}})</p>
+<p><b>Blood Group:</b> {{rs[11]}}</p>
+<p><b>Registered On:</b> {{rs[13]}}</p>
+
+<hr style="background:white">
+
+<a href="/hos_pat_req?pid={{rs[0]}}" class="card-btn">🫀 Organ Required</a>
+<a href="/hos_pat_check?pid={{rs[0]}}" class="card-btn">📊 Status</a>
+
+</div>
+</div>
+{% endfor %}
+
+</div>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer-area text-center">
+<div class="container">
+<p>Organ Donation System © 2026</p>
+<p>Tamilnadu, India | organ@info.com</p>
+</div>
+</footer>
+
+<script src="../static/js/jquery-2.2.4.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+
+</body>
+</html>

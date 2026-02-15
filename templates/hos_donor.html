@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Donor Information</title>
+
+<link rel="stylesheet" href="../static/css/bootstrap.css">
+<link rel="stylesheet" href="../static/vendors/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body{
+    background:linear-gradient(135deg,#e8f0ff,#f7fbff);
+    font-family:"Segoe UI", sans-serif;
+    margin:0;
+}
+
+/* NAVBAR */
+.navbar{
+    background:linear-gradient(90deg,#0f2c64,#1f6ed5);
+    box-shadow:0 5px 20px rgba(0,0,0,.2);
+}
+.navbar-brand{
+    color:white!important;
+    font-weight:700;
+}
+.navbar-nav{margin:auto;}
+.navbar .nav-link{
+    color:white!important;
+    font-weight:600;
+    margin:0 14px;
+    padding:6px 48px;
+    border-radius:8px;
+    background:linear-gradient(135deg,#2e86de,#48dbfb);
+    transition:.4s;
+    box-shadow:0 5px 12px rgba(0,0,0,.2);
+}
+.navbar .nav-link:hover{
+    background:linear-gradient(135deg,#48dbfb,#2e86de);
+    transform:translateY(-3px);
+}
+
+/* HERO */
+.hero-banner{
+    background:linear-gradient(rgba(50,100,220,.85),rgba(120,200,255,.85)),url('../static/img/hero.jpg');
+    background-size:cover;
+    color:white;
+    padding:70px 0;
+}
+
+/* LAYOUT */
+.dashboard-wrapper{
+    display:flex;
+}
+
+/* SIDEBAR */
+.sidebar{
+    width:260px;
+    min-height:100vh;
+    background:linear-gradient(180deg,#0f2c64,#1f6ed5);
+    padding:25px 15px;
+    box-shadow:4px 0 20px rgba(0,0,0,.25);
+    position:relative;
+}
+.sidebar::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;
+    width:6px;height:100%;
+    background:linear-gradient(#48dbfb,#2e86de);
+}
+.sidebar a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:15px 18px;
+    margin-bottom:16px;
+    border-radius:12px;
+    color:white;
+    text-decoration:none;
+    background:rgba(255,255,255,.1);
+    transition:.4s;
+}
+.sidebar a:hover{
+    background:linear-gradient(135deg,#48dbfb,#2e86de);
+    transform:translateX(8px);
+}
+.sidebar a.active{
+    background:linear-gradient(135deg,#48dbfb,#2e86de);
+    transform:translateX(8px);
+    box-shadow:0 0 15px rgba(72,219,251,.9);
+}
+
+/* MAIN */
+.main-content{
+    padding:35px;
+    flex:1;
+}
+
+/* DONOR CARD */
+.donor-card{
+    background:linear-gradient(135deg,#2e86de,#48dbfb);
+    color:white;
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+    height:420px;
+    overflow-y:auto;
+    transition:.4s;
+}
+.donor-card:hover{
+    transform:translateY(-8px);
+}
+.donor-card img{
+    border-radius:50%;
+    border:3px solid white;
+    margin-bottom:10px;
+}
+
+/* SCROLLBAR */
+.donor-card::-webkit-scrollbar{
+    width:6px;
+}
+.donor-card::-webkit-scrollbar-thumb{
+    background:#ffffffaa;
+    border-radius:10px;
+}
+
+/* BUTTONS */
+.btn-card{
+    display:inline-block;
+    margin:5px 5px 0 5px;
+    padding:6px 12px;
+    border-radius:25px;
+    font-weight:600;
+    text-decoration:none;
+    color:white;
+    background:linear-gradient(135deg,#0f2c64,#1f6ed5);
+    transition:.3s;
+}
+.btn-card:hover{
+    background:linear-gradient(135deg,#1f6ed5,#0f2c64);
+    transform:scale(1.05);
+    color:white;
+}
+
+/* FOOTER */
+.footer-area{
+    background:linear-gradient(90deg,#0f2c64,#1f6ed5);
+    color:white;
+    padding:40px 0;
+    margin-top:40px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+<div class="container">
+<a class="navbar-brand" href="#">🏥 ORGAN</a>
+<button class="navbar-toggler" data-toggle="collapse" data-target="#navMenu">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navMenu">
+<ul class="navbar-nav">
+<li class="nav-item"><a class="nav-link" href="/hos_home">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="/hos_donor">Donor</a></li>
+<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+</ul>
+</div>
+</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-banner text-center">
+<div class="container">
+<h1>Donor Information</h1>
+<p>Registered Organ Donors</p>
+</div>
+</section>
+
+<!-- DASHBOARD -->
+<div class="dashboard-wrapper">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<a href="/hos_pat"><i class="fas fa-user-injured"></i> Patients</a>
+<a href="/hos_donor" class="active"><i class="fas fa-hand-holding-medical"></i> Donors</a>
+<a href="/hos_req"><i class="fas fa-notes-medical"></i> Organ Required</a>
+<a href="/hos_trans"><i class="fas fa-procedures"></i> Transplant</a>
+</div>
+
+<!-- MAIN -->
+<div class="main-content">
+
+<h3 class="mb-4">Donor Information</h3>
+<a href="/add_donor" class="btn btn-primary mb-3">➕ Add Donor</a>
+
+<div class="row">
+{% for rs in data %}
+<div class="col-md-4 mb-4">
+    <div class="donor-card text-center">
+
+        <img src="../static/upload/{{rs[14]}}" width="90" height="90">
+
+        <h5>{{rs[1]}} (ID: {{rs[15]}})</h5>
+        <p>Gender: {{rs[2]}}</p>
+        <p>DOB: {{rs[3]}}</p>
+        <p>Address: {{rs[4]}}, {{rs[5]}}</p>
+        <p>Mobile: {{rs[6]}}</p>
+        <p>Email: {{rs[7]}}</p>
+        <p>Aadhar: {{rs[8]}}</p>
+        <p>PAN: {{rs[9]}}</p>
+        <p>Guardian: {{rs[10]}} ({{rs[11]}})</p>
+        <p>Blood Group: {{rs[12]}}</p>
+        <p>Organ: {{rs[13]}}</p>
+        <p>Registered: {{rs[17]}}</p>
+
+        <a href="static/upload/C{{rs[0]}}.jpg" target="_blank" class="btn btn-light btn-sm">View Certificate</a>
+
+        <!-- Donation Matching Button -->
+        <a href="{{ url_for('donor_match', donor_id=rs[15]) }}" class="btn btn-primary btn-sm mt-2">
+            🔍 Donation Matching
+        </a>
+
+    </div>
+</div>
+{% endfor %}
+
+</div>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer-area text-center">
+<div class="container">
+<p>Organ Donation System © 2026</p>
+<p>Tamilnadu, India | organ@info.com</p>
+</div>
+</footer>
+
+<script src="../static/js/jquery-2.2.4.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+</body>
+</html>
