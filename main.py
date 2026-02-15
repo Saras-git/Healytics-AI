@@ -38,8 +38,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 
 mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
+  host="",
+  user="",
   passwd="",
   charset="utf8",
   database="organ_donation"
@@ -48,7 +48,7 @@ mydb = mysql.connector.connect(
 
 app = Flask(__name__)
 ##session key
-app.secret_key = 'abcdef'
+app.secret_key = ''
 UPLOAD_FOLDER = 'static/upload'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 #####
